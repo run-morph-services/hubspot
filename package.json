@@ -2,6 +2,7 @@
   "id": "hubspot",
   "name": "HubSpot",
   "author": "HenriChabrand",
+  "version": "1.0.0",
   "authentication": {
     "type": "oauth2",
     "authorize_url": "https://app.hubspot.com/oauth/authorize",
