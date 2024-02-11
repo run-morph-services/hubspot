@@ -1,5 +1,9 @@
 import { Crm }  from "@run-morph/models";
-import { List, Resource, Error, ErrorType}  from "@run-morph/sdk";
+import { List, Resource, Metadata, Error, ErrorType }  from "@run-morph/sdk";
+
+export const metadata:Metadata = {
+	scopes:['crm.objects.contacts.read']
+};
 
 export default new List( async (runtime, { filters }) => { 
 	

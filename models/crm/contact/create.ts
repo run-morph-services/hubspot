@@ -1,5 +1,12 @@
 import { Crm }  from "@run-morph/models";
-import { Create, Resource, Error, ErrorType }  from "@run-morph/sdk";
+import { Create, Resource, Metadata, Error, ErrorType }  from "@run-morph/sdk";
+
+export const metadata:Metadata = {
+	scopes:[
+        'crm.objects.contacts.write',
+        'crm.schemas.contacts.write'
+    ]
+};
 
 export default new Create( async (runtime, { data }) => { 
 	
