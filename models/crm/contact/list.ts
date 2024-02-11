@@ -12,6 +12,9 @@ export default new List( async (runtime, { filters }) => {
 		id: hs_contact.id,
 		data: {
 			first_name: hs_contact.properties.firstname,
+			last_name: hs_contact.properties.lastname,
+			email: hs_contact.properties.email,
+			phone: hs_contact.properties.phone
 		},
 		created_at: new Date(hs_contact.createdAt).toISOString(),
 		updated_at: new Date(hs_contact.updatedAt).toISOString()
