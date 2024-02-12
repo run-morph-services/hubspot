@@ -1,14 +1,15 @@
 import { Crm }  from "@run-morph/models";
 import { Create, Resource, Metadata, Error, ErrorType }  from "@run-morph/sdk";
 
-export const metadata:Metadata = {
+const metadata:Metadata<Crm.Contact> = {
+    model: Crm.Contact,
 	scopes:[
         'crm.objects.contacts.write',
         'crm.schemas.contacts.write'
     ]
 };
 
-export default new Create( async (runtime, { data }) => { 
+export default new Create(async (runtime, { data }) => { 
 	
     const response = await runtime.proxy({
         method: 'POST',
@@ -37,11 +38,11 @@ export default new Create( async (runtime, { data }) => {
             id: response.id,
             created_at: new Date(response.createdAt).toISOString(),
             updated_at: new Date(response.updatedAt).toISOString()
-        }, Crm.Contact)  
+        }, metadata.model)  
        
         return resource;
     } else {
         return new Error(ErrorType.UNKNOWN_ERROR);
     }
 
-}, Crm.Contact);
+}, metadata);

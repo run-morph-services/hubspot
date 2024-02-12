@@ -1,8 +1,9 @@
 import { Crm }  from "@run-morph/models";
 import { List, Resource, Metadata, Error, ErrorType }  from "@run-morph/sdk";
 
-export const metadata:Metadata = {
-	scopes:['crm.objects.contacts.read']
+const metadata:Metadata<Crm.Contact> = {
+	model: Crm.Contact,
+	scopes: ['crm.objects.contacts.read']
 };
 
 export default new List( async (runtime, { filters }) => { 
@@ -22,8 +23,8 @@ export default new List( async (runtime, { filters }) => {
 		},
 		created_at: new Date(hs_contact.createdAt).toISOString(),
 		updated_at: new Date(hs_contact.updatedAt).toISOString()
-	}, Crm.Contact)));  
+	}, metadata.model)));  
 
 	return { resources };
 
-},  Crm.Contact);
+}, metadata);
