@@ -9,6 +9,12 @@
     "access_token_url": "https://api.hubapi.com/oauth/v1/token",
     "configs": []
   },
+  "proxy": {
+    "base_url": "https://api.hubapi.com",
+    "headers": {
+     "Content-Type": "application/json"
+    }
+   },
   "scripts": {
     "build": "morph build",
     "dev": "morph develop"
