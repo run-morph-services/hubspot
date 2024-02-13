@@ -1,5 +1,5 @@
 import { Crm }  from '@run-morph/models';
-import { List, Resource, Metadata, Error, ErrorType }  from '@run-morph/sdk';
+import { List, Resource, Metadata, Error }  from '@run-morph/sdk';
 
 // Define metadata for the CRM Contact model
 const metadata:Metadata<Crm.Contact> = {
@@ -49,7 +49,7 @@ export default new List( async (runtime, { page_size, cursor, sort, filter }) =>
 	if(response.status === 'error'){
         switch (response.category){
             default:
-                throw new Error(ErrorType.UNKNOWN_ERROR, response.message);
+                throw new Error(Error.Type.UNKNOWN_ERROR, response.message);
         }
     }
 

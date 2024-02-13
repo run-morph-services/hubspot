@@ -1,5 +1,5 @@
 import { Crm }  from "@run-morph/models";
-import { Create, Resource, Metadata, Error, ErrorType }  from "@run-morph/sdk";
+import { Create, Resource, Metadata, Error }  from "@run-morph/sdk";
 
 const metadata:Metadata<Crm.Contact> = {
     model: Crm.Contact,
@@ -27,9 +27,9 @@ export default new Create(async (runtime, { data }) => {
     if(response.status === 'error'){
         switch (response.category){
             case 'CONFLICT':
-                throw new Error(ErrorType.RESOURCE_ALREADY_EXIST, response.message);
+                throw new Error(Error.Type.RESOURCE_ALREADY_EXIST, response.message);
             default:
-                throw new Error(ErrorType.UNKNOWN_ERROR, response.message);
+                throw new Error(Error.Type.UNKNOWN_ERROR, response.message);
         }
     }
     
@@ -42,7 +42,7 @@ export default new Create(async (runtime, { data }) => {
        
         return resource;
     } else {
-        throw new Error(ErrorType.UNKNOWN_ERROR);
+        throw new Error(Error.Type.UNKNOWN_ERROR);
     }
 
 }, metadata);
