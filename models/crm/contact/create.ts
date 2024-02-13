@@ -27,9 +27,9 @@ export default new Create(async (runtime, { data }) => {
     if(response.status === 'error'){
         switch (response.category){
             case 'CONFLICT':
-                return new Error(ErrorType.RESOURCE_ALREADY_EXIST, response.message);
+                throw new Error(ErrorType.RESOURCE_ALREADY_EXIST, response.message);
             default:
-                return new Error(ErrorType.UNKNOWN_ERROR, response.message);
+                throw new Error(ErrorType.UNKNOWN_ERROR, response.message);
         }
     }
     
@@ -42,7 +42,7 @@ export default new Create(async (runtime, { data }) => {
        
         return resource;
     } else {
-        return new Error(ErrorType.UNKNOWN_ERROR);
+        throw new Error(ErrorType.UNKNOWN_ERROR);
     }
 
 }, metadata);
