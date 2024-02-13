@@ -1,7 +1,7 @@
 import { Crm }  from '@run-morph/models';
 import { List, Resource, Metadata, Error }  from '@run-morph/sdk';
 
-// Define metadata for the CRM Contact model
+// Define metadata for the HubSpot Contact model
 const metadata:Metadata<Crm.Contact> = {
 	model: Crm.Contact,
 	scopes: ['crm.objects.contacts.read']
@@ -58,12 +58,15 @@ export default new List( async (runtime, { page_size, cursor, sort, filter }) =>
 	const resources = response.results.map(mapResource);  
 
 	// Return the resources and the next cursor for pagination
-	return { resources, next: next };
+	return { 
+		resources:  resources, 
+		next: next 
+	};
 
 }, metadata );
 
 
-// Helper function to map HubSpot contacts to CRM Contact resources
+// Helper function to map HubSpot contacts to HubSpot Contact resources
 function mapResource(hs_contact){
 	return new Resource<Crm.Contact>({ 
 		id: hs_contact.id,
