@@ -59,7 +59,7 @@ export default new List( async (runtime, { page_size, cursor, sort, filter }) =>
 
 	// Return the resources and the next cursor for pagination
 	return { 
-		resources:  resources, 
+		data:  resources, 
 		next: next 
 	};
 
