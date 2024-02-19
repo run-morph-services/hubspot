@@ -75,7 +75,7 @@ export default new List( async (runtime, { page_size, cursor, sort, filter }) =>
 // Helper function to map HubSpot deal to HubSpot Crm.Opportunty resource
 async function  mapResource(hs_deal, runtime){
 
-	return new Resource<Crm.Opportunity>({ 
+	return new Resource({ 
 		id: hs_deal.id,
 		data: {
 			name: hs_deal.properties.dealname,
@@ -84,11 +84,10 @@ async function  mapResource(hs_deal, runtime){
 			currency: hs_deal.properties.deal_currency_code, // Assuming currency is not provided by HubSpot and defaulting to 'USD'
 			win_probability: null, // Assuming 'win_probability' is not provided by HubSpot
 			status: new ResourceRef({ id: hs_deal.properties.dealstage, parents:{pipeline:hs_deal.properties.pipeline}}, Crm.Stage),
-			pipeline: new ResourceRef<Crm.Pipeline>({ id: hs_deal.properties.pipeline}, Crm.Pipeline), // Assuming a helper function to map dealstage to status
+			pipeline: new ResourceRef({ id: hs_deal.properties.pipeline}, Crm.Pipeline),
 			closed_at: hs_deal.properties.closedate ? new Date(hs_deal.properties.closedate).toISOString() : null,
 			contacts:[],
 			companies:[]
-			//contacts: associated_contact.results.map((hs_ass) =>  new Resource<Crm.Contact>({id:hs_ass.toObjectId}, Crm.Contact))
 		},
 		created_at: new Date(hs_deal.createdAt).toISOString(),
 		updated_at: new Date(hs_deal.updatedAt).toISOString()
