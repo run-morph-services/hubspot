@@ -1,14 +1,14 @@
 import { Crm }  from '@run-morph/models';
-import { List, Resource, Metadata, Error }  from '@run-morph/sdk';
+import { List, Resource, ResourceRef, Metadata, Error }  from '@run-morph/sdk';
 
-// Define metadata for the HubSpot Contact model
-const metadata:Metadata<Crm.Contact> = {
-	model: Crm.Contact,
-	scopes: ['crm.objects.contacts.read']
+// Define metadata for the HubSpot Deal model
+const metadata:Metadata<Crm.Opportunity> = {
+	model: Crm.Opportunity,
+	scopes: ['crm.objects.deals.read']
 };
 
 // Export a new List operation
-export default new List( async ( runtime, { page_size, cursor, sort, filter }) => { 
+export default new List( async (runtime, { page_size, cursor, sort, filter }) => { 
 
 	// Initialize the request body with default values
 	const body = {
@@ -16,7 +16,7 @@ export default new List( async ( runtime, { page_size, cursor, sort, filter }) =
 		filterGroups:[],
 		limit: 50, // Default limit
 		properties: [
-			'email', 'firstname', 'lastname', 'website', 'company', 'phone', 'address', 'city', 'state', 'zip', 'country', 'hubspot_owner_id', 'createdate', 'closedate', 'lastmodifieddate', 'lifecyclestage'
+			'amount', 'company','closedate', 'dealname', 'pipeline', 'dealstage', 'hubspot_owner_id', 'deal_currency_code'
 		],
 		after: cursor?.after || null
 	}
@@ -38,12 +38,14 @@ export default new List( async ( runtime, { page_size, cursor, sort, filter }) =
 		body.filterGroups.push({ filters: hs_filter })
 	}
 
-	// Call the HubSpot contact search API
+	// Call the HubSpot deal search API
 	const response = await runtime.proxy({
 		method: 'POST',
-		path: '/crm/v3/objects/contacts/search',
+		path: '/crm/v3/objects/deals/search',
 		body
 	});
+
+	console.log(response.results[0])
 
 	// Handle errors from the API response
 	if(response.status === 'error'){
@@ -55,8 +57,12 @@ export default new List( async ( runtime, { page_size, cursor, sort, filter }) =
 
 	// Prepare the next cursor and map resources for the response
 	const next = response?.paging?.next || null;
-	const resources = response.results.map(mapResource);  
-
+	const resources = []; // Initialise un tableau vide pour les ressources
+	for (const result of response.results) {
+		const resource = await mapResource(result, runtime);
+		resources.push(resource);
+	}
+	
 	// Return the resources and the next cursor for pagination
 	return { 
 		data:  resources, 
@@ -66,19 +72,27 @@ export default new List( async ( runtime, { page_size, cursor, sort, filter }) =
 }, metadata );
 
 
-// Helper function to map HubSpot contacts to HubSpot Contact resources
-function mapResource(hs_contact){
-	return new Resource({ 
-		id: hs_contact.id,
+// Helper function to map HubSpot deal to HubSpot Crm.Opportunty resource
+async function  mapResource(hs_deal, runtime){
+
+	return new Resource<Crm.Opportunity>({ 
+		id: hs_deal.id,
 		data: {
-			first_name: hs_contact.properties.firstname,
-			last_name: hs_contact.properties.lastname,
-			email: hs_contact.properties.email,
-			phone: hs_contact.properties.phone
+			name: hs_deal.properties.dealname,
+			description: hs_deal.properties.description, // Assuming 'description' is a valid property from HubSpot deal
+			amount: parseFloat(hs_deal.properties.amount),
+			currency: hs_deal.properties.deal_currency_code, // Assuming currency is not provided by HubSpot and defaulting to 'USD'
+			win_probability: null, // Assuming 'win_probability' is not provided by HubSpot
+			status: new ResourceRef({ id: hs_deal.properties.dealstage}, Crm.Stage),
+			pipeline: new ResourceRef<Crm.Pipeline>({ id: hs_deal.properties.pipeline}, Crm.Pipeline), // Assuming a helper function to map dealstage to status
+			closed_at: hs_deal.properties.closedate ? new Date(hs_deal.properties.closedate).toISOString() : null,
+			contacts:[],
+			companies:[]
+			//contacts: associated_contact.results.map((hs_ass) =>  new Resource<Crm.Contact>({id:hs_ass.toObjectId}, Crm.Contact))
 		},
-			created_at: new Date(hs_contact.createdAt).toISOString(),
-			updated_at: new Date(hs_contact.updatedAt).toISOString()
-		}, Crm.Contact)
+		created_at: new Date(hs_deal.createdAt).toISOString(),
+		updated_at: new Date(hs_deal.updatedAt).toISOString()
+	}, Crm.Opportunity)
 }
 
 // Helper function to map sorting parameters
@@ -100,9 +114,10 @@ function mapSort(sort) {
 // Helper function to map filtering parameters
 function mapFilter(filter) {
     const filterMapping = {
-        first_name: 'firstname',
-        last_name: 'lastname',
-        email: 'email'
+        name: 'dealname',
+        amount: 'amount',
+        status: 'dealstage',
+        closed_at: 'closedate'
     };
 
     let hs_filters = [];

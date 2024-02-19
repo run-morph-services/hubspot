@@ -1,5 +1,5 @@
 import { Crm }  from "@run-morph/models";
-import { Create, Resource, Metadata, Error }  from "@run-morph/sdk";
+import { Create, ResourceEvent, Metadata, Error }  from "@run-morph/sdk";
 
 const metadata:Metadata<Crm.Contact> = {
     model: Crm.Contact,
@@ -9,7 +9,7 @@ const metadata:Metadata<Crm.Contact> = {
     ]
 };
 
-export default new Create(async (runtime, { data }) => { 
+export default new Create( async (runtime, { data }) => { 
 	
     const response = await runtime.proxy({
         method: 'POST',
@@ -34,11 +34,11 @@ export default new Create(async (runtime, { data }) => {
     }
     
     if(response.id){
-        const resource = new Resource<Crm.Contact>({ 
+        const resource = new ResourceEvent({ 
             id: response.id,
             created_at: new Date(response.createdAt).toISOString(),
             updated_at: new Date(response.updatedAt).toISOString()
-        }, metadata.model)  
+        }, Crm.Contact)  
        
         return resource;
     } else {
