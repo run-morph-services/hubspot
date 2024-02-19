@@ -7,10 +7,11 @@ const metadata:Metadata<Crm.Opportunity> = {
 	scopes: ['crm.objects.deals.read']
 };
 
-// Export a new List operation
+
 export default new Retrieve( async (runtime, { id }) => { 
 	console.log(id)
-	// Call the HubSpot GET deal API
+
+	// Call the HubSpotAPI GET a deal 
 	const response = await runtime.proxy({
 		method: 'GET',
 		path: `/crm/v3/objects/deals/${id}`,
@@ -39,7 +40,7 @@ export default new Retrieve( async (runtime, { id }) => {
 }, metadata );
 
 
-// Helper function to map HubSpot contacts to HubSpot Contact resources
+// Helper function to map HubSpot deal to HubSpot Crm.Opportunty resource
 function mapResource(hs_deal){
 	return new Resource<Crm.Opportunity>({ 
 		id: hs_deal.id,

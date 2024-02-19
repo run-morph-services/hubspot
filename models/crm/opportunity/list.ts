@@ -83,7 +83,7 @@ async function  mapResource(hs_deal, runtime){
 			amount: parseFloat(hs_deal.properties.amount),
 			currency: hs_deal.properties.deal_currency_code, // Assuming currency is not provided by HubSpot and defaulting to 'USD'
 			win_probability: null, // Assuming 'win_probability' is not provided by HubSpot
-			status: new ResourceRef({ id: hs_deal.properties.dealstage}, Crm.Stage),
+			status: new ResourceRef({ id: hs_deal.properties.dealstage, parents:{pipeline:hs_deal.properties.pipeline}}, Crm.Stage),
 			pipeline: new ResourceRef<Crm.Pipeline>({ id: hs_deal.properties.pipeline}, Crm.Pipeline), // Assuming a helper function to map dealstage to status
 			closed_at: hs_deal.properties.closedate ? new Date(hs_deal.properties.closedate).toISOString() : null,
 			contacts:[],
