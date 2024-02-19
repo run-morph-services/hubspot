@@ -20,7 +20,7 @@
     "dev": "morph develop"
   },
   "dependencies": {
-    "@run-morph/sdk": "^1.0.13",
-    "@run-morph/models": "^1.0.0"
+    "@run-morph/sdk": "^1.0.14",
+    "@run-morph/models": "^1.0.1"
   }
 }
