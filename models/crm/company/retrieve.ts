@@ -9,15 +9,13 @@ const metadata:Metadata<Crm.Company> = {
 
 // Export a new List operation
 export default new Retrieve( async (runtime, { id }) => { 
-	console.log(id)
+
 	// Call the HubSpot GET companies API
 	const response = await runtime.proxy({
 		method: 'GET',
 		path: `/crm/v3/objects/companies/${id}`
 	});
-
 	
-	console.log(response)
 	// Handle errors from the API response
 	if(response.status === 'error'){
         switch (response.category){

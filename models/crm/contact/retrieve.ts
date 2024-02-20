@@ -16,8 +16,7 @@ export default new Retrieve( async (runtime, { id }) => {
 		path: `/crm/v3/objects/contacts/${id}`
 	});
 
-	
-	console.log(response)
+
 	// Handle errors from the API response
 	if(response.status === 'error'){
         switch (response.category){

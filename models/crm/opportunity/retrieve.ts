@@ -9,7 +9,6 @@ const metadata:Metadata<Crm.Opportunity> = {
 
 
 export default new Retrieve( async (runtime, { id }) => { 
-	console.log(id)
 
 	// Call the HubSpotAPI GET a deal 
 	const response = await runtime.proxy({
@@ -21,8 +20,6 @@ export default new Retrieve( async (runtime, { id }) => {
 		}
 	});
 
-	
-	console.log(response)
 	// Handle errors from the API response
 	if(response.status === 'error'){
         switch (response.category){
