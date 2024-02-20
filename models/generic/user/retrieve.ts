@@ -41,7 +41,9 @@ function mapResource(hs_owner){
 	return new Resource({ 
 		id: hs_owner.id,
 		data: {
-			name: hs_owner.firstName+' '+hs_owner.lastName
+			first_name: hs_owner.firstName,
+			last_name: hs_owner.lastName,
+			email: hs_owner.email
 		},
 		created_at: new Date(hs_owner.createdAt).toISOString(),
 		updated_at: new Date(hs_owner.updatedAt).toISOString()
