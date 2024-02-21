@@ -4,7 +4,7 @@ import { Retrieve, Resource, Metadata, Error }  from '@run-morph/sdk';
 // Define metadata for the HubSpot company model
 const metadata:Metadata<Crm.Company> = {
 	model: Crm.Company,
-	scopes: ['crm.objects.company.read']
+	scopes: ['crm.objects.companies.read']
 };
 
 // Export a new List operation

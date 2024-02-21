@@ -7,7 +7,8 @@
     "type": "oauth2",
     "authorize_url": "https://app.hubspot.com/oauth/authorize",
     "access_token_url": "https://api.hubapi.com/oauth/v1/token",
-    "configs": []
+    "configs": [],
+    "scopes": []
   },
   "proxy": {
     "base_url": "https://api.hubapi.com",
