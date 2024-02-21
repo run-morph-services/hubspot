@@ -3,7 +3,7 @@
   "name": "HubSpot",
   "author": "HenriChabrand",
   "version": "1.0.0",
-  "connection": {
+  "authentication": {
     "type": "oauth2",
     "authorize_url": "https://app.hubspot.com/oauth/authorize",
     "access_token_url": "https://api.hubapi.com/oauth/v1/token",
