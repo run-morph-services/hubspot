@@ -22,6 +22,6 @@
   },
   "dependencies": {
     "@run-morph/sdk": "^1.0.15",
-    "@run-morph/models": "^1.0.3"
+    "@run-morph/models": "^1.0.4"
   }
 }
