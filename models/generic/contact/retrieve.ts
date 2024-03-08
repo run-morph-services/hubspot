@@ -1,9 +1,9 @@
-import { Crm }  from '@run-morph/models';
+import { Generic }  from '@run-morph/models';
 import { Retrieve, Resource, Metadata, Error }  from '@run-morph/sdk';
 
 // Define metadata for the HubSpot contact model
-const metadata:Metadata<Crm.Contact> = {
-	model: Crm.Contact,
+const metadata:Metadata<Generic.Contact> = {
+	model: Generic.Contact,
 	scopes: ['crm.objects.contacts.read']
 };
 
@@ -44,5 +44,5 @@ function mapResource(hs_contact){
 		},
 			created_at: new Date(hs_contact.createdAt).toISOString(),
 			updated_at: new Date(hs_contact.updatedAt).toISOString()
-		}, Crm.Contact)
+		}, Generic.Contact)
 }

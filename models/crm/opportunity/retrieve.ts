@@ -48,8 +48,8 @@ function mapResource(hs_deal){
 			status: new ResourceRef({ id: hs_deal.properties.dealstage, parents:{pipeline:hs_deal.properties.pipeline}}, Crm.Stage),
 			pipeline: new ResourceRef({ id: hs_deal.properties.pipeline}, Crm.Pipeline),
 			owner: new ResourceRef({ id: hs_deal.properties.hubspot_owner_id}, Generic.User),
-			contacts: hs_deal.associations?.contacts ? hs_deal.associations.contacts.results.filter((c) => (c.type === 'deal_to_contact')).map((hs_contact) => (new ResourceRef<Crm.Contact>({ id: hs_contact.id }, Crm.Contact))) : [],
-			companies: hs_deal.associations?.companies ? hs_deal.associations.companies.results.filter((c) => (c.type === 'deal_to_company')).map((hs_company) => (new ResourceRef<Crm.Company>({ id: hs_company.id }, Crm.Company))) : []
+			contacts: hs_deal.associations?.contacts ? hs_deal.associations.contacts.results.filter((c) => (c.type === 'deal_to_contact')).map((hs_contact) => (new ResourceRef<Generic.Contact>({ id: hs_contact.id }, Generic.Contact))) : [],
+			companies: hs_deal.associations?.companies ? hs_deal.associations.companies.results.filter((c) => (c.type === 'deal_to_company')).map((hs_company) => (new ResourceRef<Generic.Company>({ id: hs_company.id }, Generic.Company))) : []
 		},
 		created_at: new Date(hs_deal.createdAt).toISOString(),
 		updated_at: new Date(hs_deal.updatedAt).toISOString()

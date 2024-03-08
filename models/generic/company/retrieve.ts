@@ -1,9 +1,9 @@
-import { Crm }  from '@run-morph/models';
+import { Generic }  from '@run-morph/models';
 import { Retrieve, Resource, Metadata, Error }  from '@run-morph/sdk';
 
 // Define metadata for the HubSpot company model
-const metadata:Metadata<Crm.Company> = {
-	model: Crm.Company,
+const metadata:Metadata<Generic.Company> = {
+	model: Generic.Company,
 	scopes: ['crm.objects.companies.read']
 };
 
@@ -42,5 +42,5 @@ function mapResource(hs_company){
 		},
 			created_at: new Date(hs_company.createdAt).toISOString(),
 			updated_at: new Date(hs_company.updatedAt).toISOString()
-		}, Crm.Company)
+		}, Generic.Company)
 }
