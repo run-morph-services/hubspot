@@ -55,6 +55,7 @@ function mapResource(hs_stage, pipeline){
 			type: stageType 
 		}, 
 		created_at: hs_stage.createdAt, 
-		updated_at: hs_stage.updatedAt
+		updated_at: hs_stage.updatedAt,
+		remote_data: hs_stage
 	}, Crm.Stage );
 }

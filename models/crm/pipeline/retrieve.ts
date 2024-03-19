@@ -51,10 +51,11 @@ function mapResource(hs_pipeline){
             } else {
                 stageType = 'OPEN';
             }
-            return new Resource<Crm.Stage>({id: hs_stage.id, parents:{pipeline:hs_pipeline.id}, data:{ name:hs_stage.label, type: stageType }, created_at: hs_stage.createdAt, updated_at: hs_stage.updatedAt},Crm.Stage);
+            return new Resource<Crm.Stage>({id: hs_stage.id, parents:{pipeline:hs_pipeline.id}, data:{ name:hs_stage.label, type: stageType }, created_at: hs_stage.createdAt, updated_at: hs_stage.updatedAt, remote_data: hs_stage},Crm.Stage);
         })
 		},
 		created_at: new Date(hs_pipeline.createdAt).toISOString(),
-		updated_at: new Date(hs_pipeline.updatedAt).toISOString()
+		updated_at: new Date(hs_pipeline.updatedAt).toISOString(),
+		remote_data: hs_pipeline
 	}, Crm.Pipeline)
 }

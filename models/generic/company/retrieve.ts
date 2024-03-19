@@ -40,7 +40,8 @@ function mapResource(hs_company){
 		data: {
 			name: hs_company.properties.name
 		},
-			created_at: new Date(hs_company.createdAt).toISOString(),
-			updated_at: new Date(hs_company.updatedAt).toISOString()
+		created_at: new Date(hs_company.createdAt).toISOString(),
+		updated_at: new Date(hs_company.updatedAt).toISOString(),
+		remote_data: hs_company
 		}, Generic.Company)
 }

@@ -52,6 +52,7 @@ function mapResource(hs_deal){
 			companies: hs_deal.associations?.companies ? hs_deal.associations.companies.results.filter((c) => (c.type === 'deal_to_company')).map((hs_company) => (new ResourceRef<Generic.Company>({ id: hs_company.id }, Generic.Company))) : []
 		},
 		created_at: new Date(hs_deal.createdAt).toISOString(),
-		updated_at: new Date(hs_deal.updatedAt).toISOString()
+		updated_at: new Date(hs_deal.updatedAt).toISOString(),
+		remote_data: hs_deal
 		}, Crm.Opportunity)
 }

@@ -9,7 +9,7 @@ const metadata:Metadata<Generic.Contact> = {
     ]
 };
 
-export default new Create( async (runtime, { data }) => { 
+export default new Create( async (runtime, { data, remote_fields}) => { 
 	
     const response = await runtime.proxy({
         method: 'POST',
@@ -20,7 +20,8 @@ export default new Create( async (runtime, { data }) => {
                 firstname: data.first_name,
                 lastname: data.last_name,
                 phone: data.phone
-            }
+            },
+            ...remote_fields
         }
     });
     

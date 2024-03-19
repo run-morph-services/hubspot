@@ -38,6 +38,7 @@ function mapResource(hs_workspace){
 			name: `HubSpot (${hs_workspace.portalId})`
 		},
 		created_at: new Date().toISOString(),
-		updated_at: new Date().toISOString()
+		updated_at: new Date().toISOString(),
+		remote_data: hs_workspace
 	}, Generic.Workspace)
 }

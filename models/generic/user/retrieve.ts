@@ -46,6 +46,7 @@ function mapResource(hs_owner){
 			email: hs_owner.email
 		},
 		created_at: new Date(hs_owner.createdAt).toISOString(),
-		updated_at: new Date(hs_owner.updatedAt).toISOString()
+		updated_at: new Date(hs_owner.updatedAt).toISOString(),
+		remote_data: hs_owner
 	}, Generic.User)
 }

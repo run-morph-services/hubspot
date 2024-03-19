@@ -4,7 +4,7 @@ import { List, Resource, ResourceRef, Metadata, Error }  from '@run-morph/sdk';
 // Define metadata for the HubSpot Deal model
 const metadata:Metadata<Crm.Opportunity> = {
 	model: Crm.Opportunity,
-	scopes: ['crm.objects.deals.read']
+	scopes: ['crm.objects.deals.read']	
 };
 
 // Export a new List operation
@@ -90,8 +90,10 @@ async function  mapResource(hs_deal, runtime){
 			companies:[]
 		},
 		created_at: new Date(hs_deal.createdAt).toISOString(),
-		updated_at: new Date(hs_deal.updatedAt).toISOString()
-	}, Crm.Opportunity)
+		updated_at: new Date(hs_deal.updatedAt).toISOString(),
+		remote_data: hs_deal
+	},
+	Crm.Opportunity)
 }
 
 // Helper function to map sorting parameters

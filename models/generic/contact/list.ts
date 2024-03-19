@@ -8,7 +8,7 @@ const metadata:Metadata<Generic.Contact> = {
 };
 
 // Export a new List operation
-export default new List( async ( runtime, { page_size, cursor, sort, filter }) => { 
+export default new List( async ( runtime, { page_size, cursor, sort, filter, remote_fields }) => { 
 
 	// Initialize the request body with default values
 	const body = {
@@ -16,7 +16,8 @@ export default new List( async ( runtime, { page_size, cursor, sort, filter }) =
 		filterGroups:[],
 		limit: 50, // Default limit
 		properties: [
-			'email', 'firstname', 'lastname', 'website', 'company', 'phone', 'address', 'city', 'state', 'zip', 'country', 'hubspot_owner_id', 'createdate', 'closedate', 'lastmodifieddate', 'lifecyclestage'
+			'email', 'firstname', 'lastname', 'website', 'company', 'phone', 'address', 'city', 'state', 'zip', 'country', 'hubspot_owner_id', 'createdate', 'closedate', 'lastmodifieddate', 'lifecyclestage',
+			...remote_fields
 		],
 		after: cursor?.after || null
 	}
@@ -44,6 +45,9 @@ export default new List( async ( runtime, { page_size, cursor, sort, filter }) =
 		path: '/crm/v3/objects/contacts/search',
 		body
 	});
+
+	console.log(response.results)
+	
 
 	// Handle errors from the API response
 	if(response.status === 'error'){
@@ -77,7 +81,8 @@ function mapResource(hs_contact){
 			phone: hs_contact.properties.phone
 		},
 			created_at: new Date(hs_contact.createdAt).toISOString(),
-			updated_at: new Date(hs_contact.updatedAt).toISOString()
+			updated_at: new Date(hs_contact.updatedAt).toISOString(),
+			remote_data: hs_contact
 		}, Generic.Contact)
 }
 

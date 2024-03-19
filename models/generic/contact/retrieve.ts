@@ -8,14 +8,20 @@ const metadata:Metadata<Generic.Contact> = {
 };
 
 
-export default new Retrieve( async (runtime, { id }) => { 
-
+export default new Retrieve( async (runtime, { id, remote_fields }) => { 
+	console.log('remote_fields', remote_fields)
 	// Call the HubSpot GET contact API
 	const response = await runtime.proxy({
 		method: 'GET',
-		path: `/crm/v3/objects/contacts/${id}`
+		path: `/crm/v3/objects/contacts/${id}`,
+		params:{
+			properties: [
+				...remote_fields
+			],
+		}
 	});
 
+	console.log(response)
 
 	// Handle errors from the API response
 	if(response.status === 'error'){
@@ -43,6 +49,7 @@ function mapResource(hs_contact){
 			phone: hs_contact.properties.phone
 		},
 			created_at: new Date(hs_contact.createdAt).toISOString(),
-			updated_at: new Date(hs_contact.updatedAt).toISOString()
+			updated_at: new Date(hs_contact.updatedAt).toISOString(),
+			remote_data: hs_contact
 		}, Generic.Contact)
 }
