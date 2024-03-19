@@ -16,6 +16,7 @@ export default new Retrieve( async (runtime, { id, remote_fields }) => {
 		path: `/crm/v3/objects/contacts/${id}`,
 		params:{
 			properties: [
+				'email', 'firstname', 'lastname', 'website', 'company', 'phone', 'address', 'city', 'state', 'zip', 'country', 'hubspot_owner_id', 'createdate', 'closedate', 'lastmodifieddate', 'lifecyclestage',
 				...remote_fields
 			],
 		}
