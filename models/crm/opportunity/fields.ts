@@ -25,7 +25,7 @@ const metadata: Metadata<Crm.Opportunity> = {
             remote_keys: [],
             operations: ['list', 'retrieve']
         },
-        status: {
+        stage: {
             remote_keys: ['dealstage', 'pipeline'],
             operations: ['list', 'retrieve', 'update']
         },
