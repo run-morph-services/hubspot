@@ -18,12 +18,15 @@ export default new Update( async (runtime, { id, data }) => {
     if (data.currency) properties.deal_currency_code = data.currency;
     if (data.win_probability) properties.custom_win_probability = data.win_probability.toString();
     if (data.stage && data.stage.id) properties.dealstage = data.stage.id;
+    // TO DELETE
+    if (data.status && data.status.id) properties.dealstage = data.status.id;
     if (data.pipeline && data.pipeline.id) properties.pipeline = data.pipeline.id;
     if (data.closed_at) properties.custom_closed_at = data.closed_at;
     if (data.owner && data.owner.id) properties.hubspot_owner_id = data.owner.id;
 
     // Map unified deal data to HubSpot API format
     const hubSpotBody = { properties }
+    console.log(hubSpotBody)
 
     // Call the HubSpot API PATCH a deal 
     const response = await runtime.proxy({

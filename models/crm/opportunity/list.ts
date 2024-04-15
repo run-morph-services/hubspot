@@ -84,6 +84,8 @@ async function  mapResource(hs_deal, runtime){
 			currency: hs_deal.properties.deal_currency_code, // Assuming currency is not provided by HubSpot and defaulting to 'USD'
 			win_probability: null, // Assuming 'win_probability' is not provided by HubSpot
 			stage: new ResourceRef({ id: hs_deal.properties.dealstage, parents:{pipeline:hs_deal.properties.pipeline}}, Crm.Stage),
+			// TO DELETE
+			status: new ResourceRef({ id: hs_deal.properties.dealstage, parents:{pipeline:hs_deal.properties.pipeline}}, Crm.Stage), 
 			pipeline: new ResourceRef({ id: hs_deal.properties.pipeline}, Crm.Pipeline),
 			closed_at: hs_deal.properties.closedate ? new Date(hs_deal.properties.closedate).toISOString() : null,
 			contacts:[],
@@ -117,7 +119,7 @@ function mapFilter(filter) {
     const filterMapping = {
         name: 'dealname',
         amount: 'amount',
-        status: 'dealstage',
+        stage: 'dealstage',
         closed_at: 'closedate'
     };
 
