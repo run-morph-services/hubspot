@@ -26,7 +26,6 @@ export default new Update( async (runtime, { id, data }) => {
 
     // Map unified deal data to HubSpot API format
     const hubSpotBody = { properties }
-    console.log(hubSpotBody)
 
     // Call the HubSpot API PATCH a deal 
     const response = await runtime.proxy({

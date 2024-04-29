@@ -29,6 +29,11 @@ const metadata: Metadata<Crm.Opportunity> = {
             remote_keys: ['dealstage', 'pipeline'],
             operations: ['list', 'retrieve', 'update']
         },
+        // TO DELETE
+        status: {
+            remote_keys: ['dealstage', 'pipeline'],
+            operations: ['list', 'retrieve', 'update']
+        },
         pipeline: {
             remote_keys: ['pipeline'],
             operations: ['list', 'retrieve']
